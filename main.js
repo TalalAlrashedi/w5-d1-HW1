@@ -71,6 +71,7 @@ function renderProducts(products) {
     const card = document.createElement("div");
     card.className = "col-sm-6 col-md-4 col-lg-3 product-col";
 
+
     card.innerHTML = `
         <div class="card product-card h-100">
           <img src="${product.image}" class="card-img-top product-image" alt="${product.title}">
