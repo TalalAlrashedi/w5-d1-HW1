@@ -19,7 +19,7 @@ function register() {
   const username = document.getElementById("username").value.trim();
   const password = document.getElementById("password").value.trim();
 
-  if (!username && !password) {
+  if (!username || !password) {
     alert("يرجى تعبئة جميع الحقول");
     return;
   }
@@ -28,6 +28,28 @@ function register() {
   alert("تم إنشاء الحساب بنجاح! سيتم نقلك إلى صفحة التسجيل ");
   window.location.href = "login.html";
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  const username = localStorage.getItem("currentUser");
+
+  if (
+    !username &&
+    !window.location.href.includes("login.html") &&
+    !window.location.href.includes("register.html")
+  ) {
+    window.location.href = "login.html";
+    return;
+  }
+
+  const userNameElement = document.getElementById("user-name");
+  if (userNameElement) {
+    userNameElement.textContent = username;
+  }
+
+  if (window.location.pathname.includes("index.html")) {
+    loadProducts();
+  }
+});
 
 async function loadProducts() {
   try {
@@ -62,7 +84,6 @@ function renderProducts(products) {
     container.appendChild(card);
   }
 }
-loadProducts();
 
 function logout() {
   localStorage.removeItem("currentUser");
